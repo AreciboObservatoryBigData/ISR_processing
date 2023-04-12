@@ -31,10 +31,10 @@ def main():
 
 
             #calling the function with the parameters       
-            verify_input(input_files,results_input)
+            input_min_max=verify_input(input_files,results_input)
+            
 
-
-            verify_output(results_output,output_files)
+            verify_output(results_output,output_files,input_min_max)
             
             breakpoint()
 
@@ -70,7 +70,6 @@ def verify_input(input_files, results_input):
         input_ext.append(input_filename.split(".")[-1])
         input_identification.append(input_id)
         input_identification = list(set(input_identification))
-            
     with open(results_input, "w") as file:
         file.write("Unique Input File Name: \n")
         for item in input_identification:
@@ -85,6 +84,7 @@ def verify_input(input_files, results_input):
         file.write("Minimum number: " + str(extra_detail[0]) + "\n")
         file.write("Maximum number: " + str(extra_detail[1]) + "\n")
         file.write("Missing numbers: " + str(extra_detail[2]) + "\n")
+    return extra_detail
 
 def criteria_1(out_type_list,results_output):
     passed =True
@@ -117,10 +117,12 @@ def criteria_1(out_type_list,results_output):
     return passed
 
 def criteria_2(output_extensions,results_output):
+    ext_1_results = []
 
     time_ext_list = list(output_extensions["toppi_1"].keys())
     time_ext_list = [int(x) for x in time_ext_list]
     results=find_missing_numbers(time_ext_list)
+    ext_1_results.append(["toppi_1", results])
     if len(results[2]) != 0:
         with open(results_output, "a") as file:
             file.write("\nTheres a missing numbers in Toppi: " + str(results))
@@ -130,9 +132,11 @@ def criteria_2(output_extensions,results_output):
     time_ext_list = list(output_extensions["clppi_1"].keys())
     time_ext_list = [int(x) for x in time_ext_list]
     results=find_missing_numbers(time_ext_list)
+    ext_1_results.append(["clppi_1", results])
     if len(results[2]) != 0:
         with open(results_output, "a") as file:
             file.write("\nTheres a missing numbers in Clppi: " + str(results))
+    return ext_1_results
 
 def criteria_3_4(output_extensions, results_output):
 # for each category in output_extensions
@@ -148,7 +152,6 @@ def criteria_3_4(output_extensions, results_output):
             if i == 0:
                 min_num = results[0]
                 max_num = results[1]
-            
             #If anomaly is found in criteria #3 write it to file
             if len(results[2]) != 0:
                 with open(results_output, "a") as file:
@@ -166,7 +169,13 @@ def criteria_3_4(output_extensions, results_output):
                 with open(results_output, "a") as file:
                     file.write(str(category)+ " " +str(ext1)+ str(results))
 
-def verify_output(results_output, output_files):
+def criteria_5(input_min_max,output_type_details,results_output):
+    if not (input_min_max[0:2] == output_type_details[0][1][0:2] and input_min_max[0:2] == output_type_details[1][1][0:2]):
+        with open(results_output, "a") as file:
+            file.write("\n\nMin and Max are not the same in input and output directories \n")    
+            file.write(f"Min and Max in the input: {input_min_max[0:2]}, found where toppi_1{output_type_details[0][1][0:2]} & clppi_1{output_type_details[1][1][0:2]} \n")
+
+def verify_output(results_output, output_files,input_min_max):
     output_extensions = {}
     for file in output_files:
         output_files = file.split(".")
@@ -185,9 +194,12 @@ def verify_output(results_output, output_files):
     passed = criteria_1(out_type_list, results_output)
     if passed == False:
         return
-    criteria_2(output_extensions,results_output)
+    
+    output_type_details=criteria_2(output_extensions,results_output)
 
     criteria_3_4(output_extensions, results_output)
+
+    criteria_5(input_min_max,output_type_details,results_output)
 
 
 
