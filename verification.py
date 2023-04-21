@@ -4,7 +4,9 @@ import glob
 # testing
 #Input
 paths_list="inputs/output_median_year_filter_list.txt"
+outputs_dir_path = "outputs"
 def main():
+    global input_path
     with open (paths_list,"r") as f:
         #read file line  by line saving in each line in the line variable
         for line in f:
@@ -13,9 +15,15 @@ def main():
             line = line[:-1]
             #it takes the variable, lo divide en tab y lo guarda en elments en una lista
             elements = line.split("\t")
+            folder_names_list = elements[0].split("/")[8:11]
+            new_output_dir_path = "/".join(folder_names_list)
+            new_output_dir_path = os.path.join(outputs_dir_path, new_output_dir_path)
+            if not os.path.exists(new_output_dir_path):
+                command = "mkdir -p " + new_output_dir_path
+                os.system(command)
             
-            results_output = "outputs/output_dir_verification.txt"
-            results_input = "outputs/input_dir_verification.txt"
+            results_output = os.path.join(new_output_dir_path, "output_dir_verification.txt")
+            results_input = os.path.join(new_output_dir_path, "input_dir_verification.txt")
         
             # absolute path
             input_path= elements[0]
@@ -36,7 +44,7 @@ def main():
 
             verify_output(results_output,output_files,input_min_max)
             
-            breakpoint()
+            # breakpoint()
 
 
 
@@ -76,7 +84,7 @@ def verify_input(input_files, results_input):
             file.write(f'{item}\n') 
 
     ext_int = [int(x) for x in input_ext]
-    extra_detail = find_missing_numbers(ext_int)
+    extra_detail = find_missing_numbers(ext_int)   
     
 
     with open(results_input, "a") as file:
