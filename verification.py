@@ -84,7 +84,11 @@ def verify_input(input_files, results_input):
             file.write(f'{item}\n') 
 
     ext_int = [int(x) for x in input_ext]
-    extra_detail = find_missing_numbers(ext_int)   
+    try:
+        extra_detail = find_missing_numbers(ext_int)
+    except:
+        breakpoint()
+    
     
 
     with open(results_input, "a") as file:
