@@ -3,7 +3,7 @@ import os
 import glob
 # testing
 #Input
-paths_list="inputs/output_median_year_filter_list.txt"
+paths_list="inputs/output_median_list.txt"
 outputs_dir_path = "outputs"
 def main():
     global input_path
@@ -28,6 +28,7 @@ def main():
             # absolute path
             input_path= elements[0]
             output_path= elements[2]
+            breakpoint()
 
             # getting listing
             input_files = glob.glob(os.path.join(input_path, "*"))

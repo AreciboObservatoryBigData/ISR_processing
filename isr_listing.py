@@ -4,8 +4,8 @@ import glob
 import os
 import re
 
-complete_list_path = "/share/s3453g1/keysha/Development/ISR/complete_list.txt"
-output_file_path = "/share/s3453g1/keysha/Development/ISR/ISR_processing/outputs/output_median_list.txt"
+complete_list_path = "inputs/complete_list.txt"
+output_file_path = "input/output_median_list.txt"
 f = open(output_file_path, "w")
 
 with open(complete_list_path) as file:
@@ -44,9 +44,17 @@ for item in f:
   p_name = glob.glob(os.path.join(raw_path, "*"))
   p_name = [item.replace(raw_path + "/", "").split(".")[0]for item in p_name]
   new_pname = ""
+  fail = False
+
   
-  if "/net/pkgserv/export/aoweb/datacatalog/utils/sasisrcatalog/2018/10/07" in item:
-    breakpoint
+
+  project_names = []
+  for item in p_name :
+    project_names.append(item.split("_")[0])
+    project_names = list(set(project_names))
+  
+  # if "/net/pkgserv/export/aoweb/datacatalog/utils/sasisrcatalog/2018/10/07/RAW" in raw_path:
+  #   breakpoint()
   
   for name in p_name:
     if not name[0].isalpha():
@@ -58,7 +66,9 @@ for item in f:
     new_pname = name
   
   tab_input_output =  raw_path + "\t" + new_pname + "\t" + item + "\n"
-  fail = False
+
+  if len(project_names) != 1:
+        fail = True
   for name in p_name:
     
     if 'test' in name:
