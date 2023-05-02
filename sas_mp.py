@@ -48,38 +48,30 @@ if __name__ == '__main__':
             command = f"python3.7 rawr_execute_args.py -d \"{elements[0]}\" -f \"{elements[1]}\" -o \"{elements[2]}\""
             
             tasks.append(command)
+    
+    # for item in list_variable (iterator_object)
+    for command in tasks:
+        print(command)
+    
 
         
-        # task_sublists = [tasks[i:i+pool_size_int] for i in range(0, len(tasks), pool_size_int)]
+    # def my_task(arg):
+    # Do something with arg
+#     pass
 
+# if __name__ == '__main__':
+#     args = [1, 2, 3, 4, 5]
+#     processes = []
+#     for arg in args:
+#         p = multiprocessing.Process(target=my_task, args=(arg,))
+#         processes.append(p)
+#         p.start()
+#     for p in processes:
+#         p.join()
 
+    # submit each task in parallel (save process object to a list), until you reach the limit,
+    
+    # then monitor the tasks, as soon as one is done, submit another task
 
-#create a for loop using tasks
-     
-
-
-
-
-
-
-
-
-#     total_RAM_GB = total_RAM * 1e-9
-#     total_RAM_int = int(total_RAM_GB)
-#     max_ram_usage = total_RAM_int/2
-#     pool_size = max_ram_usage/RAM_per_process_GB
-#     pool_size_int = int(pool_size)
-#     estimated_RAM = RAM_per_process_GB*pool_size_int
-#     print("Max number of processes: " ,pool_size_int)
-#     print("Estimated RAM Usage: ", estimated_RAM, "GB")
-#    # Getting % usage of virtual_memory ( 3rd field)
- 
-#     # args = ["ls", "ls"]
-#     args = []
-#     for i in range(pool_size_int):
-#         args.append("sleep 20")
-
-#     with Pool(pool_size_int) as p:
-#         print(p.map(f, args))
     
 
