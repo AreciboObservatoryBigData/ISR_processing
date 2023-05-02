@@ -51,7 +51,8 @@ if __name__ == '__main__':
     
     # for item in list_variable (iterator_object)
     for command in tasks:
-        print(command)
+        # run command as if you were running it using the terminal
+        subprocess.call(command,shell=True)
     
 
         
