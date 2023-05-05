@@ -16,9 +16,13 @@ def main():
   f.close()
   f = open(output_file_path, "r")
 
+
+
   median_year_list_path= "temp/output_median_year_filter_list.txt"
   output_median_year_list_path= "inputs/median_year_filter_list.txt"
   rej_output_median_year_list_path= "outputs/rej_output_median_year_filter_list.txt"
+
+
 
   f2 = open(median_year_list_path, "w")
 
@@ -28,6 +32,8 @@ def main():
           f2.write (item)
   f.close()
   f2.close()
+
+
 
   # File contents: {input_path}   {Median_path}
   # Where: Input path is the median path but RAW instead of Output_Median
@@ -52,9 +58,7 @@ def main():
     # i+=1
 
     
-    
 
-    
     results = criterias(p_names)
 
     if results[0] ==False:
@@ -72,6 +76,8 @@ def main():
 
   os.remove(output_file_path)
   os.remove(median_year_list_path)
+
+
 
 
 def criterias(p_names):
