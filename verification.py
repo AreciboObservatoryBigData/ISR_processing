@@ -1,10 +1,11 @@
 #!/usr/bin/python3.7
 import os
 import glob
+import subprocess
 # testing
 #Input
-paths_list="inputs/output_median_list.txt"
-outputs_dir_path = "outputs"
+paths_list="inputs/median_year_filter_list.txt"
+outputs_dir_path = "outputs/verification_results"
 def main():
     global input_path
     with open (paths_list,"r") as f:
@@ -24,11 +25,11 @@ def main():
             
             results_output = os.path.join(new_output_dir_path, "output_dir_verification.txt")
             results_input = os.path.join(new_output_dir_path, "input_dir_verification.txt")
-        
+            
             # absolute path
-            input_path= elements[0]
-            output_path= elements[2]
-            breakpoint()
+            input_path = elements[0]
+            output_path = elements[2]
+            
 
             # getting listing
             input_files = glob.glob(os.path.join(input_path, "*"))
@@ -45,7 +46,9 @@ def main():
 
             verify_output(results_output,output_files,input_min_max)
             
-            # breakpoint()
+    command = f"chmod -R 777 {outputs_dir_path}"
+    breakpoint()
+    subprocess.call(command, shell=True)
 
 
 
