@@ -4,6 +4,8 @@ inputs/*
 outputs/*
 !otputs/README.md
 
+temp/*
+!temp/README.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
