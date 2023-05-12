@@ -43,7 +43,7 @@ def main(argv):
         if opt == "-o":
             o_dir = arg
             print("Output: " + arg)
-
+    
     # Count number of file with same name
     names = []
     files = next(os.walk(i_dir))[2]

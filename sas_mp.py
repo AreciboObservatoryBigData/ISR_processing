@@ -12,8 +12,11 @@ total_RAM = psutil.virtual_memory().total
 RAM_per_process_GB = 30
 #input text file
 input_file_list_path = "inputs/sas_mp_input.txt"
-def submit_tasks(command):
-    return subprocess.run(command,shell=True)
+
+
+def run_command(command):
+    subprocess.call(command, shell=True)
+    
 
 
 

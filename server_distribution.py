@@ -40,7 +40,7 @@ def main():
             #save command to list
             i+=1
         else:
-            print(f"Submited commands :" + len(server_submission_commands))
+            print(f"Submited commands :" + str(len(server_submission_commands)))
             pool.map(run_command, server_submission_commands)
             server_submission_commands=[]
             #reset the command list
