@@ -68,6 +68,22 @@ def find_missing_numbers(arr):
     summary = [min_num, max_num,full_list]
     # Return the missing numbers
     return summary
+###############################################################################
+# Change verification.py to make summary of dir_paths that failed, (descriptions optional)
+
+# Set the directory path
+dir_failed_path = 'outputs/verification_results'
+
+# Create a list of file paths for the missing items
+missing_files = []
+for file in glob.glob(os.path.join(dir_failed_path, '*')):
+# Check if the file is missing and append to list
+    if os.path.getsize(file) == 0:
+        missing_files.append(file)
+
+
+
+###############################################################################
 
 #Run the verification on the inputs directories and write the results summary
 def verify_input(input_files, results_input):
